@@ -26,7 +26,7 @@ router.get("/:date", (req, res) => {
 
   try {
     const achievements = achievementsData.filter(
-      (achievement) => achievement.date.split(" ").join("") === date,
+      (achievement) => achievement.date.split(" ").join("") === date
     );
 
     if (!achievements)
@@ -50,7 +50,7 @@ router.get("/getById/:id", (req, res) => {
 
   try {
     const achievement = achievements.find(
-      (achievement) => achievement.id === id,
+      (achievement) => achievement.id === id
     );
 
     if (!achievement)
@@ -76,7 +76,7 @@ router.put("/create", (req, res) => {
     achievementsData.push(achievement);
     fs.writeFileSync(
       achievementsFilePath,
-      JSON.stringify(achievementsData, null, 2),
+      JSON.stringify(achievementsData, null, 2)
     );
 
     return res
@@ -95,7 +95,7 @@ router.delete("/:id", (req, res) => {
 
   try {
     const achievementIdx = achievements.indexOf(
-      (achievement) => achievement.id === id,
+      (achievement) => achievement.id === id
     );
 
     if (!achievementIdx)
@@ -106,12 +106,43 @@ router.delete("/:id", (req, res) => {
     achievementsData.splice(achievementIdx, 1);
     fs.writeFileSync(
       achievementsFilePath,
-      JSON.stringify(achievementsData, null, 2),
+      JSON.stringify(achievementsData, null, 2)
     );
 
     return res
       .status(201)
       .send({ message: "Achievement deleted successfully" });
+  } catch (err) {
+    return res.status(500);
+  }
+});
+
+//CHANGE STATE
+router.post("/:id", (req, res) => {
+  const { id } = req.params;
+  const achievements = JSON.parse(fs.readFileSync(achievementsFilePath));
+
+  try {
+    const achievementIdx = achievements.findIndex(
+      (achievement) => achievement.id === id
+    );
+
+    if (achievementIdx < 0)
+      return res.status(404).send({ message: "Achievement not found" });
+
+    let achievementsData = achievements;
+
+    achievementsData[achievementIdx].pending = achievementsData[achievementIdx]
+      .pending
+      ? false
+      : true;
+
+    fs.writeFileSync(
+      achievementsFilePath,
+      JSON.stringify(achievementsData, null, 2)
+    );
+
+    return res.status(201).send({ message: achievementIdx });
   } catch (err) {
     return res.status(500);
   }
