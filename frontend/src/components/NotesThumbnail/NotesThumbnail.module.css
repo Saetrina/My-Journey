@@ -1,0 +1,30 @@
+.note {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 10px 15px;
+    width: 90%;
+    height: 70px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.0);
+    border-radius: 10px;
+    flex: 0 0 auto;
+    position: relative;
+    font-family: "Lora", cursive;
+}
+
+h3 {
+    margin: 0;
+    height: min-content;
+}
+
+p {
+    height: min-content;
+    margin: 0;
+}
+
+.icon {
+    position: absolute;
+    right: 15px;
+}

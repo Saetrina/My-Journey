@@ -1,0 +1,17 @@
+.linkButton {
+    text-decoration: none;
+    color: black;
+    width: 80px;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.2s ease-out;
+    display: flex;
+    justify-content: center;
+}
+
+.linkButton:hover {
+    background-color: black;
+    color: white;
+}
