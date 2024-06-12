@@ -3,14 +3,8 @@
     "title": "Duolingo",
     "date": "07-05-2024",
     "description": "Splněný kurz",
-    "pending": true,
-    "id": "44337f227d2384ee63d762aa58c2c06f"
-  },
-  {
-    "title": "Duolingo",
-    "date": "07-05-2024",
-    "description": "Splněný kurz",
     "pending": false,
-    "id": "123456"
+    "id": "1c23c8ac5eced17cc72da019c4fd5c3a",
+    "type": "achievement"
   }
 ]

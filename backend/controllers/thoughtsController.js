@@ -26,7 +26,7 @@ router.get("/:date", (req, res) => {
 
   try {
     const thoughts = thoughtsData.filter(
-      (thought) => thought.date.split(" ").join("") === date,
+      (thought) => thought.date.split(" ").join("") === date
     );
 
     if (!thoughts)
@@ -63,10 +63,12 @@ router.get("/getById/:id", (req, res) => {
 //CREATE A THOUGHT
 router.put("/create", (req, res) => {
   let thought = req.body;
+  console.log(req.body);
   let thoughtsData = JSON.parse(fs.readFileSync(thoughtsFilePath));
 
   try {
     thought.id = crypto.randomBytes(16).toString("hex");
+    thought.type = "thought";
 
     thoughtsData.push(thought);
     fs.writeFileSync(thoughtsFilePath, JSON.stringify(thoughtsData, null, 2));
@@ -97,6 +99,31 @@ router.delete("/:id", (req, res) => {
     fs.writeFileSync(thoughtsFilePath, JSON.stringify(thoughtsData, null, 2));
 
     return res.status(201).send({ message: "Thought deleted successfully" });
+  } catch (err) {
+    return res.status(500);
+  }
+});
+
+//CHANGE STATE
+router.post("/:id", (req, res) => {
+  const { id } = req.params;
+  const thoughts = JSON.parse(fs.readFileSync(thoughtsFilePath));
+
+  try {
+    const thoughtIdx = thoughts.findIndex((thought) => thought.id === id);
+
+    if (thoughtIdx < 0)
+      return res.status(404).send({ message: "Thought not found" });
+
+    let thoughtsData = thoughts;
+
+    thoughtsData[thoughtIdx].pending = thoughtsData[thoughtIdx].pending
+      ? false
+      : true;
+
+    fs.writeFileSync(thoughtsFilePath, JSON.stringify(thoughtsData, null, 2));
+
+    return res.status(201).send({ message: thoughtIdx });
   } catch (err) {
     return res.status(500);
   }

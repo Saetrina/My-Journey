@@ -26,13 +26,16 @@ router.get("/:date", (req, res) => {
 
   try {
     const tasks = tasksData.filter(
-      (task) => task.date.split(" ").join("") === date,
+      (task) => task.date.split(" ").join("") === date
     );
 
     if (!tasks)
       return res.status(404).send({ message: "No tasks found on this day" });
 
-    return res.status(201).send(tasks);
+    return res
+      .status(201)
+      .json(tasks)
+      .send({ message: "Task retrieved successfully" });
   } catch (err) {
     return res.status(500);
   }
@@ -60,10 +63,12 @@ router.get("/getById/:id", (req, res) => {
 //CREATE A TASK
 router.put("/create", (req, res) => {
   let task = req.body;
+  console.log(req.body);
   let tasksData = JSON.parse(fs.readFileSync(tasksFilePath));
 
   try {
     task.id = crypto.randomBytes(16).toString("hex");
+    task.type = "task";
 
     tasksData.push(task);
     fs.writeFileSync(tasksFilePath, JSON.stringify(tasksData, null, 2));
@@ -93,6 +98,28 @@ router.delete("/:id", (req, res) => {
     fs.writeFileSync(tasksFilePath, JSON.stringify(tasksData, null, 2));
 
     return res.status(201).send({ message: "Task deleted successfully" });
+  } catch (err) {
+    return res.status(500);
+  }
+});
+
+//CHANGE STATE
+router.post("/:id", (req, res) => {
+  const { id } = req.params;
+  const tasks = JSON.parse(fs.readFileSync(tasksFilePath));
+
+  try {
+    const taskIdx = tasks.findIndex((task) => task.id === id);
+
+    if (taskIdx < 0) return res.status(404).send({ message: "Task not found" });
+
+    let tasksData = tasks;
+
+    tasksData[taskIdx].pending = tasksData[taskIdx].pending ? false : true;
+
+    fs.writeFileSync(tasksFilePath, JSON.stringify(tasksData, null, 2));
+
+    return res.status(201).send({ message: taskIdx });
   } catch (err) {
     return res.status(500);
   }

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./NotesThumbnail.module.css";
 import { MdOutlineTimer } from "react-icons/md";
 import { IoCheckmarkCircle } from "react-icons/io5";
+import axios from "axios";
 
-const NotesThumbnail = ({ title, description, pending }) => {
+const NotesThumbnail = ({ title, description, pending, id, type }) => {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
@@ -12,6 +13,7 @@ const NotesThumbnail = ({ title, description, pending }) => {
 
   const changeStatus = () => {
     status ? setStatus(false) : setStatus(true);
+    axios.post(`http://localhost:5555/${type}s/${id}`);
   };
 
   return (

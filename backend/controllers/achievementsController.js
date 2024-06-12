@@ -68,10 +68,12 @@ router.get("/getById/:id", (req, res) => {
 //CREATE A ACHIEVEMENT
 router.put("/create", (req, res) => {
   let achievement = req.body;
+  console.log(req.body);
   let achievementsData = JSON.parse(fs.readFileSync(achievementsFilePath));
 
   try {
     achievement.id = crypto.randomBytes(16).toString("hex");
+    achievement.type = "achievement";
 
     achievementsData.push(achievement);
     fs.writeFileSync(

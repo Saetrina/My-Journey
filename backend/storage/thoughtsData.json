@@ -3,7 +3,8 @@
     "title": "DnD hra",
     "date": "06-05-2024",
     "description": "ripoff",
-    "pending": false,
-    "id": "44337f227d2384ee63d762aa58c2c06f"
+    "pending": true,
+    "id": "44337f227d2384ee63d762aa58c2c06f",
+    "type": "thought"
   }
 ]
