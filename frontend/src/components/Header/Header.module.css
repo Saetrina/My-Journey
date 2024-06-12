@@ -1,24 +1,36 @@
 .header {
-    width: 100vw;
-    height: 10vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(5px);
+  width: 100vw;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .headlinetext {
-    font-size: 2.5rem;
-    margin: 25px 0;
-    height: min-content;
-    font-family: "Lora", cursive;
-    font-weight: 400;
-    font-style: italic;
+  font-size: 2.5rem;
+  margin: auto;
+  height: 100%;
+  height: min-content;
+  font-family: "Lora", cursive;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .headline {
-    margin: 0 20px;
-    height: 96px;
+  margin: 0 20px;
+  height: 96px;
+  display: flex;
+  justify-content: center;
+}
+
+a:visited {
+  color: black;
+}
+
+a {
+  text-decoration: none;
 }

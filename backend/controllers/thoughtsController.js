@@ -69,6 +69,7 @@ router.put("/create", (req, res) => {
   try {
     thought.id = crypto.randomBytes(16).toString("hex");
     thought.type = "thought";
+    thought.pending = true;
 
     thoughtsData.push(thought);
     fs.writeFileSync(thoughtsFilePath, JSON.stringify(thoughtsData, null, 2));

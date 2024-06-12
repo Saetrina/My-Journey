@@ -74,6 +74,7 @@ router.put("/create", (req, res) => {
   try {
     achievement.id = crypto.randomBytes(16).toString("hex");
     achievement.type = "achievement";
+    achievement.pending = true;
 
     achievementsData.push(achievement);
     fs.writeFileSync(
